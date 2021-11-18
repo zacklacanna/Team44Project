@@ -6,6 +6,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.scene.Group;
 import javafx.scene.text.*;
+import java.util.*;
 
 public class PALS extends Application
 {
@@ -63,11 +64,14 @@ public class PALS extends Application
                if (account.getUserName().equalsIgnoreCase(username) &&
                      account.getPassWord().equalsIgnoreCase(password))
                {
+                   plLabel.setText("Success");
                    //open patient portal for user
                } else {
+                 plLabel.setText("Incorrect");
                  continue;
                }
              } else {
+               plLabel.setText("Incorrect");
                continue;
              }
          }

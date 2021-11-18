@@ -84,7 +84,7 @@ public class main {
 	}
 
 	
-	public class LoadAccounts
+	/*public class LoadAccounts
 	{
 		File file = new File("");
 	}
@@ -99,7 +99,7 @@ public class main {
 		{
 			
 		}
-	}
+	}*/
 	
 	public class User 
 	{
@@ -184,10 +184,11 @@ public class main {
 		{
 			return aStaff.getID();
 		}
-		public String toString()
+		/*
+      public String toString()
 		{
 			return name + "\n" + userName + "\n" + passWord + "\n" + type + "\n" + 
-		}
+		}*/
 	}
 	
 	public class Patient extends User
