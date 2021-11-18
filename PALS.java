@@ -35,6 +35,68 @@ public class PALS extends Application
          
          loLayout.getChildren().addAll(loLabel);
          
+         //---------------------------------Staff Inbox Scene-------------------------
+
+        Group spiLayout = new Group();
+        Scene staffInbox = new Scene(spiLayout, 600, 500);
+
+        Label spiLabel = new Label("Inbox");
+        Button spCompose = new Button("Compose");
+        Button spfBack = new Button("Go back");
+
+        spiLabel.setLayoutX(175);
+        spiLabel.setLayoutY(125);
+        spiLabel.setPrefSize(150,50);
+        spiLabel.setFont(biggerFont);
+
+        spCompose.setLayoutX(500);
+        spCompose.setLayoutY(125);
+        spCompose.setPrefSize(100,50);
+        
+        
+        spiBack.setLayoutX(75);
+        spiBack.setLayoutY(75);
+        spiBack.setPrefSize(100,50);
+        
+         spiLayout.getChildren().addAll(spfLabel, fName, lName, submit, spfBack);
+         
+          //---------------------------------Staff Patient Info Scene-------------------------
+
+        Group spfiLayout = new Group();
+        Scene staffPatientInfo = new Scene(spfiLayout, 600, 500);
+
+        Label spfLabel = new Label("Patient info:");
+        Button spfBack = new Button("Go back");
+        Label patientInfo = new Label();
+
+        spfLabel.setLayoutX(175);
+        spfLabel.setLayoutY(175);
+        spfLabel.setPrefSize(150,50);
+        spfLabel.setFont(biggerFont);
+
+        fName.setLayoutX(175);
+        fName.setLayoutY(225);
+        fName.setPrefSize(200,50);
+        fName.setText("Enter first name");
+
+        lName.setLayoutX(175);
+        lName.setLayoutY(275);
+        lName.setPrefSize(200,50);
+        lName.setText("Enter last name");
+
+        submit.setLayoutX(175);
+        submit.setLayoutY(325);
+        submit.setPrefSize(100,50);
+        submit.setOnAction(e -> {
+        //check for patient info adn display in new scene
+        });
+        
+        spfBack.setLayoutX(75);
+        spfBack.setLayoutY(75);
+        spfBack.setPrefSize(100,50);
+        
+         spfLayout.getChildren().addAll(spfLabel, fName, lName, submit, spfBack);
+         
          //---------------------------------Staff Find a patient Scene-------------------------
 
         Group spfLayout = new Group();
@@ -65,7 +127,9 @@ public class PALS extends Application
         submit.setLayoutY(325);
         submit.setPrefSize(100,50);
         submit.setOnAction(e -> {
-        //check for patient info
+            //find patient based on info
+            //store as a patient to pass to next scene
+            primaryStage.setScene(staffPatientInfo);
         });
         
         spfBack.setLayoutX(75);
@@ -104,7 +168,7 @@ public class PALS extends Application
          spLogout.setPrefSize(150,50);
          spLogout.setOnAction(e -> primaryStage.setScene(loggedOut));
          
-         //spiBack.setOnAction(e -> primaryStage.setScene(staffPortal)); //these buttons must be referenced after the scene is declared
+         spiBack.setOnAction(e -> primaryStage.setScene(staffPortal)); //these buttons must be referenced after the scene is declared
          spfBack.setOnAction(e -> primaryStage.setScene(staffPortal));
          //spfiBack.setOnaction(e -> primaryStage.setScene(staffPortal));
          
