@@ -13,10 +13,62 @@ import java.util.*;
 public class main extends Application
 {
 
-	public static void main(String[] args)
-   	{
-           launch(args);
-   	}
+	public List<User> accounts = new ArrayList<User>();
+
+	public static void main(String[] args) 
+	{
+		//launch(args)
+
+		//create base accounts
+		main mainClass = new main();
+		mainClass.createBaseAccounts();	
+	}
+
+	public void createBaseAccounts()
+	{
+		//Default Users
+
+		//Staff 1
+			Staff staffOne = new Staff(123);
+				staffOne.setInfo("6029871234", "500 E University Dr", "asandler@gmail.com");
+				staffOne.setUserName("asandler");
+				staffOne.setPassWord("happyfeet1234");
+				staffOne.setName("Adam Sandler");
+				staffOne.setType("Staff");
+		
+		//Patient 1
+			Patient patientOne = new Patient();
+				patientOne.setDOB("08/10/1999");
+				patientOne.setName("John Smith");
+				patientOne.setUserName("jsmith");
+				patientOne.setType("Patient");
+				patientOne.setPassWord("applesmith321");
+				patientOne.setInsurance("Cigna");
+				patientOne.setBodyTemp(98);
+				patientOne.setHeight(68);
+				patientOne.setBloodPressure((int)(120/80));
+				patientOne.setWeight(148);
+				accounts.add(patientOne);
+			
+			staffOne.addAPatient(patientOne);
+
+		//Patient 2
+			Patient patientTwo = new Patient();
+				patientTwo.setDOB("08/10/1987");
+				patientTwo.setName("Sen Bimmons");
+				patientTwo.setUserName("sbimmons");
+				patientTwo.setType("Patient");
+				patientTwo.setPassWord("threepoint3");
+				patientTwo.setInsurance("Cigna");
+				patientTwo.setBodyTemp(98);
+				patientTwo.setHeight(78);
+				patientTwo.setBloodPressure((int)(124/80));
+				patientTwo.setWeight(148);
+				accounts.add(patientTwo);	
+
+			staffOne.addAPatient(patientTwo);
+			accounts.add(staffOne);
+	}
 	
 	public class User 
 	{
