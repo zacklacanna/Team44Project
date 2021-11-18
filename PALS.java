@@ -42,7 +42,7 @@ public class PALS extends Application
 
         Label spiLabel = new Label("Inbox");
         Button spCompose = new Button("Compose");
-        Button spfBack = new Button("Go back");
+        Button spiBack = new Button("Go back");
 
         spiLabel.setLayoutX(175);
         spiLabel.setLayoutY(125);
@@ -58,44 +58,32 @@ public class PALS extends Application
         spiBack.setLayoutY(75);
         spiBack.setPrefSize(100,50);
         
-         spiLayout.getChildren().addAll(spfLabel, fName, lName, submit, spfBack);
+         spiLayout.getChildren().addAll(spiLabel, spCompose, spiBack);
          
           //---------------------------------Staff Patient Info Scene-------------------------
 
         Group spfiLayout = new Group();
         Scene staffPatientInfo = new Scene(spfiLayout, 600, 500);
 
-        Label spfLabel = new Label("Patient info:");
-        Button spfBack = new Button("Go back");
+        Label spfiLabel = new Label("Patient info:");
+        Button spfiBack = new Button("Go back");
         Label patientInfo = new Label();
 
-        spfLabel.setLayoutX(175);
-        spfLabel.setLayoutY(175);
-        spfLabel.setPrefSize(150,50);
-        spfLabel.setFont(biggerFont);
-
-        fName.setLayoutX(175);
-        fName.setLayoutY(225);
-        fName.setPrefSize(200,50);
-        fName.setText("Enter first name");
-
-        lName.setLayoutX(175);
-        lName.setLayoutY(275);
-        lName.setPrefSize(200,50);
-        lName.setText("Enter last name");
-
-        submit.setLayoutX(175);
-        submit.setLayoutY(325);
-        submit.setPrefSize(100,50);
-        submit.setOnAction(e -> {
-        //check for patient info adn display in new scene
-        });
+        spfiLabel.setLayoutX(175);
+        spfiLabel.setLayoutY(175);
+        spfiLabel.setPrefSize(150,50);
+        spfiLabel.setFont(biggerFont);
         
-        spfBack.setLayoutX(75);
-        spfBack.setLayoutY(75);
-        spfBack.setPrefSize(100,50);
+        patientInfo.setLayoutX(175);
+        patientInfo.setLayoutY(300);
+        patientInfo.setPrefSize(400,300);
+        patientInfo.setText("Invalid patient");//patient info from search displayed here
         
-         spfLayout.getChildren().addAll(spfLabel, fName, lName, submit, spfBack);
+        spfiBack.setLayoutX(75);
+        spfiBack.setLayoutY(75);
+        spfiBack.setPrefSize(100,50);
+        
+         spfiLayout.getChildren().addAll(spfiLabel, patientInfo, spfiBack);
          
          //---------------------------------Staff Find a patient Scene-------------------------
 
@@ -170,7 +158,7 @@ public class PALS extends Application
          
          spiBack.setOnAction(e -> primaryStage.setScene(staffPortal)); //these buttons must be referenced after the scene is declared
          spfBack.setOnAction(e -> primaryStage.setScene(staffPortal));
-         //spfiBack.setOnaction(e -> primaryStage.setScene(staffPortal));
+         spfiBack.setOnAction(e -> primaryStage.setScene(staffPortal));
          
          spLayout.getChildren().addAll(spLabel, spFind, spInbox, spLogout);
 
