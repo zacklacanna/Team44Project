@@ -22,6 +22,36 @@ public class PALS extends Application
       primaryStage.setTitle("PALS");
       Font biggerFont = Font.font("Arial", FontWeight.BOLD, 18);
       
+      //---------------------------------Staff Portal Scene------------------------
+      
+      Group spLayout = new Group();
+      Scene staffPortal = new Scene(spLayout, 600, 500);
+      
+      Label spLabel = new Label("Staff Portal");
+      Button spFind = new Button("Find a patient");
+      Button spInbox = new Button("Inbox");
+      Button spLogout = new Button("Log out");
+      
+      spLabel.setLayoutX(175);
+      spLabel.setLayoutY(100);
+      spLabel.setPrefSize(150,50);
+      spLabel.setFont(biggerFont);
+      
+      spFind.setLayoutX(175);
+      spFind.setLayoutY(175);
+      spFind.setPrefSize(150,50);
+      //spFind.setOnAction(e -> primaryStage.setScene(findPatientScene));
+      
+      spInbox.setLayoutX(175);
+      spInbox.setLayoutY(250);
+      spInbox.setPrefSize(150,50);
+      //spInbox.setOnAction(e -> primaryStage.setScene(spInbox));
+      
+      spLogout.setLayoutX(175);
+      spLogout.setLayoutY(250);
+      spLogout.setPrefSize(150,50);
+      spLogout.setOnAction(e -> stop());
+      
       
       //---------------------------------Patient Login Scene-----------------------
       
@@ -77,26 +107,6 @@ public class PALS extends Application
          }
       });
       plLayout.getChildren().addAll(plLabel, pUsername, pPassword, pConfirm);
-      
-      //---------------------------------Staff Portal Scene------------------------
-      
-      Group spLayout = new Group();
-      Scene staffPortal = new Scene(spLayout, 600, 500);
-      
-      Label spLabel = new Label("Staff Portal");
-      Button spFind = new Button("Find a patient");
-      Button spInbox = new Button("Inbox");
-      Button spLogout = new Button("Log out");
-      
-      spLabel.setLayoutX(175);
-      spLabel.setLayoutY(100);
-      spLabel.setPrefSize(150,50);
-      spLabel.setFont(biggerFont);
-      
-      spFind.setLayoutX(175);
-      spFind.setLayoutY(175);
-      spFind.setPrefSize(150,50);
-      
       
       //---------------------------------Staff Login Scene-------------------------
       
