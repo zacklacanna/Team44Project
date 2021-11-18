@@ -50,17 +50,28 @@ public class PALS extends Application
       pConfirm.setLayoutX(175);
       pConfirm.setLayoutY(325);
       pConfirm.setPrefSize(50,50);
-      /*pConfirm.setOnAction(e -> {
-         bool user/pass = (runn check)
-         if user/pass good
-         {
+      pConfirm.setOnAction(e -> {
+         String username = pUsername.getText();
+         String password = pPassword.getText();
          
-         }
-         else
+         main newClass = new main();
+         List<main.User> accounts = newClass.getAccounts();
+         for (main.User account : accounts)
          {
-         
+             if (account.getType().equalsIgnoreCase("Patient"))
+             {
+               if (account.getUserName().equalsIgnoreCase(username) &&
+                     account.getPassWord().equalsIgnoreCase(password))
+               {
+                   //open patient portal for user
+               } else {
+                 continue;
+               }
+             } else {
+               continue;
+             }
          }
-      });*/
+      });
       plLayout.getChildren().addAll(plLabel, pUsername, pPassword, pConfirm);
       
       //---------------------------------Staff Portal Scene------------------------
