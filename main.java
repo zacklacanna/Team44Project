@@ -1,17 +1,24 @@
 
-import javafx.application.Application;
+/*import javafx.application.Application;
 import javafx.event.ActionEvent;
-import javafx.event.ActionHandler;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
-import javafx.scene.stage.Stage;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
+import javafx.scene.Group;
+import javafx.scene.text.*;*/
 
+//import javafx.*;
 import java.util.*;
 
-public class main extends Application
-{
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.InputStreamReader;
+
+import java.io.FileWriter;
+import java.io.PrintWriter;
+
+public class main {
 
 	public List<User> accounts = new ArrayList<User>();
 
@@ -23,6 +30,12 @@ public class main extends Application
 		main mainClass = new main();
 		mainClass.createBaseAccounts();	
 	}
+
+	public List<User> getAccounts()
+	{
+		return accounts;
+	}
+
 
 	public void createBaseAccounts()
 	{
@@ -69,6 +82,24 @@ public class main extends Application
 			staffOne.addAPatient(patientTwo);
 			accounts.add(staffOne);
 	}
+
+	
+	public class LoadAccounts
+	{
+		File file = new File("");
+	}
+
+
+	
+	public class SaveAccounts
+	{
+		PrintWriter out = new PrintWriter("data.txt");
+		
+		for(User each : accounts)
+		{
+			
+		}
+	}
 	
 	public class User 
 	{
@@ -77,7 +108,7 @@ public class main extends Application
 		private String passWord;
 		private String type;
 		private String name;
-		private Info basicInfo;
+		private Info basic;
 		private Patient aPatient;
 		private Staff aStaff;
 		//private messageInbox messageinbox;
@@ -129,13 +160,13 @@ public class main extends Application
 		{
 			return type;
 		}
-		void setInfo(int pN, String hA, String eMail)
+		void setInfo(String pN, String hA, String eMail)
 		{
-			basicInfo = new Info(pN, hA, eMail);
+			basic = new Info(pN, hA, eMail);
 		}
 		Info getInfo()
 		{
-			return basicInfo;
+			return basic;
 		}
 		void setPatient(String dofb, String aD, float w, float h, int bT, int bP, String p, String iP)
 		{
@@ -152,6 +183,10 @@ public class main extends Application
 		int getStaffID()
 		{
 			return aStaff.getID();
+		}
+		public String toString()
+		{
+			return name + "\n" + userName + "\n" + passWord + "\n" + type + "\n" + 
 		}
 	}
 	
@@ -268,6 +303,10 @@ public class main extends Application
 		{
 			return insuranceProv;
 		}
+		public String toString()
+		{
+			return dob + "\n" + assignedDoctor + "\n" + weight + "\n" + height + "\n" + bodyTemp + "\n" + bloodPressure + "\n" + allergies + "\n" + visitHistory + "\n" + pharmLoc + "\n" + insuranceProv + "\n";
+		}
 	}
 	
 	public class Staff extends User
@@ -320,18 +359,18 @@ public class main extends Application
 
 	public class Info extends User
 	{
-		private int phoneNumber;
+		private String phoneNumber;
 		private String homeAddress;
 		private String email;
 
-		Info(int number, String homeAddress, String email)
+		Info(String number, String homeAddress, String email)
 		{
 			this.phoneNumber = number;
 			this.homeAddress = homeAddress;
 			this.email = email;
 		}
 		
-		int getPhoneNumber()
+		String getPhoneNumber()
 		{
 			return phoneNumber;
 		}
@@ -344,6 +383,10 @@ public class main extends Application
 		String getEmail()
 		{
 			return email;
+		}
+		public String toString()
+		{
+			return phoneNumber + "\n" + homeAddress + "\n" + email + "\n";
 		}
 	}
 
@@ -476,43 +519,3 @@ public class main extends Application
 		}
 	}
 }
-
-public class LoginTest extends Application
-{
-   
-   Label label;
-   Button staffButton, patientButton;
-   
-   @Override
-   public void start(Stage primaryStage) throws Exception
-   {
-      primaryStage.setTitle("PALS Login");
-      Group root = new Group();
-      Scene loginSelect = new Scene(root, 600, 500);
-      
-      label = new Label("Login as:");
-      staffButton = new Button("Staff");
-      patientButton = new Button("Patient");
-      
-      Font font = Font.font("Arial", FontWeight.BOLD, 18);
-      
-      label.setLayoutX(260);
-      label.setLayoutY(175);
-      label.setPrefSize(100,50);
-      label.setFont(font);
-      staffButton.setLayoutX(175);
-      staffButton.setLayoutY(225);
-      staffButton.setPrefSize(100,50);
-      patientButton.setLayoutX(325);
-      patientButton.setLayoutY(225);
-      patientButton.setPrefSize(100,50);
-      
-      root.getChildren().add(label);
-      root.getChildren().add(patientButton);
-      root.getChildren().add(staffButton);
-     
-      primaryStage.setScene(loginSelect);
-      primaryStage.show();
-   }
-   
-}  
