@@ -10,11 +10,12 @@ import javafx.scene.stage.Stage;
 
 import java.util.*;
 
-public class main {
+public class main extends Application
+{
 
 	public static void main(String[] args)
    	{
-      launch(args);
+           launch(args);
    	}
 	
 	public class User 
@@ -423,3 +424,43 @@ public class main {
 		}
 	}
 }
+
+public class LoginTest extends Application
+{
+   
+   Label label;
+   Button staffButton, patientButton;
+   
+   @Override
+   public void start(Stage primaryStage) throws Exception
+   {
+      primaryStage.setTitle("PALS Login");
+      Group root = new Group();
+      Scene loginSelect = new Scene(root, 600, 500);
+      
+      label = new Label("Login as:");
+      staffButton = new Button("Staff");
+      patientButton = new Button("Patient");
+      
+      Font font = Font.font("Arial", FontWeight.BOLD, 18);
+      
+      label.setLayoutX(260);
+      label.setLayoutY(175);
+      label.setPrefSize(100,50);
+      label.setFont(font);
+      staffButton.setLayoutX(175);
+      staffButton.setLayoutY(225);
+      staffButton.setPrefSize(100,50);
+      patientButton.setLayoutX(325);
+      patientButton.setLayoutY(225);
+      patientButton.setPrefSize(100,50);
+      
+      root.getChildren().add(label);
+      root.getChildren().add(patientButton);
+      root.getChildren().add(staffButton);
+     
+      primaryStage.setScene(loginSelect);
+      primaryStage.show();
+   }
+   
+}  
