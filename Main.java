@@ -18,17 +18,18 @@ import java.io.InputStreamReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 
-public class main {
+public class Main {
 
 	public List<User> accounts = new ArrayList<User>();
 
 	public static void main(String[] args) 
 	{
-		//launch(args)
 
 		//create base accounts
-		main mainClass = new main();
+		Main mainClass = new Main();
 		mainClass.createBaseAccounts();	
+
+		System.out.println(mainClass.accounts.size());
 	}
 
 	public List<User> getAccounts()
@@ -84,22 +85,23 @@ public class main {
 	}
 
 	
-	/*public class LoadAccounts
+	public class LoadAccounts
 	{
-		File file = new File("");
+		File file = new File("data.txt");
 	}
 
 
 	
 	public class SaveAccounts
-	{
+	{	
+		private List<User> list = new ArrayList<User>();
 		PrintWriter out = new PrintWriter("data.txt");
 		
-		for(User each : accounts)
+		for(User each : list)
 		{
 			
 		}
-	}*/
+	}
 	
 	public class User 
 	{
@@ -184,11 +186,10 @@ public class main {
 		{
 			return aStaff.getID();
 		}
-		/*
-      public String toString()
+		public String toString()
 		{
-			return name + "\n" + userName + "\n" + passWord + "\n" + type + "\n" + 
-		}*/
+			return name + "\n" + userName + "\n" + passWord + "\n" + type + "\n" + basic.toString() + "\n" +  aPatient.toString() + "\n" + aStaff.toString() + "\n" + "--End--" ;
+		}
 	}
 	
 	public class Patient extends User
@@ -306,7 +307,7 @@ public class main {
 		}
 		public String toString()
 		{
-			return dob + "\n" + assignedDoctor + "\n" + weight + "\n" + height + "\n" + bodyTemp + "\n" + bloodPressure + "\n" + allergies + "\n" + visitHistory + "\n" + pharmLoc + "\n" + insuranceProv + "\n";
+			return dob + "\n" + assignedDoctor + "\n" + weight + "\n" + height + "\n" + bodyTemp + "\n" + bloodPressure + "\n" + allergies.toString() + "\n" + visitHistory.toString() + "\n" + pharmLoc + "\n" + insuranceProv + "\n";
 		}
 	}
 	
@@ -354,6 +355,10 @@ public class main {
 				}
 			}
 			return null;
+		}
+		public String toString()
+		{
+			return id  + "\n" + somePatients.toString() + "\n" ;
 		}
 
 	}
