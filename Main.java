@@ -84,7 +84,7 @@ public class Main {
 			accounts.add(staffOne);
 	}
 
-	
+	/*
 	public class LoadAccounts
 	{
 		File file = new File("data.txt");
@@ -101,7 +101,7 @@ public class Main {
 		{
 			
 		}
-	}
+	}*/
 	
 	public class User 
 	{
