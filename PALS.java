@@ -10,10 +10,18 @@ import java.util.*;
 
 public class PALS extends Application
 {
-
     public static void main(String[] args)
     {
+        Main instance = new Main();
+        instance.createBaseAccounts();
+
         launch(args);
+    }
+
+    Main.User foundPatient = null;
+    public void setFoundPatient(Main.User user)
+    {
+        foundPatient = user;
     }
 
     @Override
@@ -22,20 +30,20 @@ public class PALS extends Application
         primaryStage.setTitle("PALS");
         Font biggerFont = Font.font("Arial", FontWeight.BOLD, 18);
 
-         //---------------------------------Logged out scene--------------------------
-         
-         Group loLayout = new Group();
-         Scene loggedOut = new Scene(loLayout, 600, 500);
-         
-         Label loLabel = new Label("Logged out");
-         loLabel.setLayoutX(175);
-         loLabel.setLayoutY(175);
-         loLabel.setPrefSize(150,50);
-         loLabel.setFont(biggerFont);
-         
-         loLayout.getChildren().addAll(loLabel);
-         
-         //---------------------------------Staff Inbox Scene-------------------------
+        //---------------------------------Logged out scene--------------------------
+
+        Group loLayout = new Group();
+        Scene loggedOut = new Scene(loLayout, 600, 500);
+
+        Label loLabel = new Label("Logged out");
+        loLabel.setLayoutX(175);
+        loLabel.setLayoutY(175);
+        loLabel.setPrefSize(150,50);
+        loLabel.setFont(biggerFont);
+
+        loLayout.getChildren().addAll(loLabel);
+
+        //---------------------------------Staff Inbox Scene-------------------------
 
         Group spiLayout = new Group();
         Scene staffInbox = new Scene(spiLayout, 600, 500);
@@ -52,49 +60,66 @@ public class PALS extends Application
         spCompose.setLayoutX(500);
         spCompose.setLayoutY(125);
         spCompose.setPrefSize(100,50);
-        
-        
+
+
         spiBack.setLayoutX(75);
         spiBack.setLayoutY(75);
         spiBack.setPrefSize(100,50);
-        
-         spiLayout.getChildren().addAll(spiLabel, spCompose, spiBack);
-         
-          //---------------------------------Staff Patient Info Scene-------------------------
 
+        spiLayout.getChildren().addAll(spiLabel, spCompose, spiBack);
+
+        //---------------------------------Staff Patient Info Scene-------------------------
         Group spfiLayout = new Group();
         Scene staffPatientInfo = new Scene(spfiLayout, 600, 500);
 
-        Label spfiLabel = new Label("Patient info:");
-        Button spfiBack = new Button("Go back");
+        Label spfiLabel = new Label("Patient Info:");
+        Button spfiBack = new Button("Go Back");
         Label patientInfo = new Label();
 
-        spfiLabel.setLayoutX(175);
-        spfiLabel.setLayoutY(175);
+        spfiLabel.setLayoutX(250);
+        spfiLabel.setLayoutY(25);
         spfiLabel.setPrefSize(150,50);
         spfiLabel.setFont(biggerFont);
-        
-        patientInfo.setLayoutX(175);
+
+        patientInfo.setLayoutX(250);
+        patientInfo.setLayoutY(100);
+        patientInfo.setPrefSize(150,50);
+        patientInfo.setFont(biggerFont);
+
+        //Add patient info
+        if (foundPatient != null)
+        {
+            patientInfo.setText("Name: " + foundPatient.getName() + "\n");
+            patientInfo.setText(patientInfo.getText() + "DOB: " + foundPatient.getDOB() + "\n");
+        } else {
+            patientInfo.setText("\nInvalid Text\n");
+        }
+
+
+        /*patientInfo.setLayoutX(175);
         patientInfo.setLayoutY(300);
         patientInfo.setPrefSize(400,300);
-        patientInfo.setText("Invalid patient");//patient info from search displayed here
-        
-        spfiBack.setLayoutX(75);
-        spfiBack.setLayoutY(75);
+
+        patientInfo.setText("Invalid patient");*/
+
+        spfiBack.setLayoutX(25);
+        spfiBack.setLayoutY(25);
         spfiBack.setPrefSize(100,50);
-        
-         spfiLayout.getChildren().addAll(spfiLabel, patientInfo, spfiBack);
-         
-         //---------------------------------Staff Find a patient Scene-------------------------
+
+        spfiLayout.getChildren().addAll(spfiLabel, patientInfo, spfiBack);
+
+        //---------------------------------Staff Find a patient Scene-------------------------
 
         Group spfLayout = new Group();
         Scene staffFindPatient = new Scene(spfLayout, 600, 500);
+        Main.User foundPatient = null;
 
         Label spfLabel = new Label("Find a patient");
         Button submit = new Button("Submit");
         Button spfBack = new Button("Go back");
         TextField fName = new TextField();
         TextField lName = new TextField();
+        TextField dob = new TextField();
 
         spfLabel.setLayoutX(175);
         spfLabel.setLayoutY(175);
@@ -111,56 +136,89 @@ public class PALS extends Application
         lName.setPrefSize(200,50);
         lName.setText("Enter last name");
 
+        dob.setLayoutX(175);
+        dob.setLayoutY(325);
+        dob.setPrefSize(200,50);
+        dob.setText("Enter DOB (MM/DD/YYYY)");
+
         submit.setLayoutX(175);
-        submit.setLayoutY(325);
+        submit.setLayoutY(375);
         submit.setPrefSize(100,50);
         submit.setOnAction(e -> {
-            //find patient based on info
-            //store as a patient to pass to next scene
+            String firstName = fName.getText();
+            String lastName = lName.getText();
+            Main.User foundUser;
+            Main newClass = new Main();
+            List<Main.User> accounts = newClass.getAccounts();
+            if (accounts.size() == 0)
+            {
+                newClass.createBaseAccounts();
+            }
+
+            for (Main.User account : accounts)
+            {
+                if (account.getType().equalsIgnoreCase("Patient"))
+                {
+                    if (account.getName().equalsIgnoreCase(firstName + " " + lastName))
+                    {
+                        if (account.getDOB().equalsIgnoreCase(dob.getText()))
+                        {
+                            setFoundPatient(account);
+                            break;
+                        } else {
+                            continue;
+                        }
+                    } else {
+                        continue;
+                    }
+                } else {
+                    continue;
+                }
+            }
             primaryStage.setScene(staffPatientInfo);
         });
-        
+
         spfBack.setLayoutX(75);
         spfBack.setLayoutY(75);
         spfBack.setPrefSize(100,50);
-        
-         spfLayout.getChildren().addAll(spfLabel, fName, lName, submit, spfBack);
-         
-         //---------------------------------Staff Portal Scene------------------------
-         
-         Group spLayout = new Group();
-         Scene staffPortal = new Scene(spLayout, 600, 500);
-         
-         Label spLabel = new Label("Staff Portal");
-         Button spFind = new Button("Find a patient");
-         Button spInbox = new Button("Inbox");
-         Button spLogout = new Button("Log out");
-         
-         spLabel.setLayoutX(175);
-         spLabel.setLayoutY(100);
-         spLabel.setPrefSize(150,50);
-         spLabel.setFont(biggerFont);
-         
-         spFind.setLayoutX(175);
-         spFind.setLayoutY(175);
-         spFind.setPrefSize(150,50);
-         spFind.setOnAction(e -> primaryStage.setScene(staffFindPatient));
-         
-         spInbox.setLayoutX(175);
-         spInbox.setLayoutY(250);
-         spInbox.setPrefSize(150,50);
-         //spInbox.setOnAction(e -> primaryStage.setScene(spInbox));
-         
-         spLogout.setLayoutX(175);
-         spLogout.setLayoutY(325);
-         spLogout.setPrefSize(150,50);
-         spLogout.setOnAction(e -> primaryStage.setScene(loggedOut));
-         
-         spiBack.setOnAction(e -> primaryStage.setScene(staffPortal)); //these buttons must be referenced after the scene is declared
-         spfBack.setOnAction(e -> primaryStage.setScene(staffPortal));
-         spfiBack.setOnAction(e -> primaryStage.setScene(staffPortal));
-         
-         spLayout.getChildren().addAll(spLabel, spFind, spInbox, spLogout);
+
+        spfLayout.getChildren().addAll(spfLabel, fName, lName, dob, submit, spfBack);
+
+        //---------------------------------Staff Portal Scene------------------------
+
+        Group spLayout = new Group();
+        Scene staffPortal = new Scene(spLayout, 600, 500);
+
+        Label spLabel = new Label("Staff Portal");
+        Button spFind = new Button("Find a patient");
+        Button spInbox = new Button("Inbox");
+        Button spLogout = new Button("Log out");
+
+        spLabel.setLayoutX(175);
+        spLabel.setLayoutY(100);
+        spLabel.setPrefSize(150,50);
+        spLabel.setFont(biggerFont);
+
+        spFind.setLayoutX(175);
+        spFind.setLayoutY(175);
+        spFind.setPrefSize(150,50);
+        spFind.setOnAction(e -> primaryStage.setScene(staffFindPatient));
+
+        spInbox.setLayoutX(175);
+        spInbox.setLayoutY(250);
+        spInbox.setPrefSize(150,50);
+        //spInbox.setOnAction(e -> primaryStage.setScene(spInbox));
+
+        spLogout.setLayoutX(175);
+        spLogout.setLayoutY(325);
+        spLogout.setPrefSize(150,50);
+        spLogout.setOnAction(e -> primaryStage.setScene(loggedOut));
+
+        spiBack.setOnAction(e -> primaryStage.setScene(staffPortal)); //these buttons must be referenced after the scene is declared
+        spfBack.setOnAction(e -> primaryStage.setScene(staffPortal));
+        spfiBack.setOnAction(e -> primaryStage.setScene(staffPortal));
+
+        spLayout.getChildren().addAll(spLabel, spFind, spInbox, spLogout);
 
         //---------------------------------Patient Login Scene-----------------------
 
@@ -207,7 +265,7 @@ public class PALS extends Application
                     if (account.getUserName().equalsIgnoreCase(username) &&
                             account.getPassWord().equalsIgnoreCase(password))
                     {
-                        //primaryStage.setScene(patientPortal);
+                        //open patient menu
                     } else {
                         plLabel.setText("Incorrect login");
                         continue;
@@ -226,7 +284,7 @@ public class PALS extends Application
         Scene staffLogin = new Scene(slLayout, 600, 500);
 
         Label slLabel = new Label("Staff Login");
-        Button sConfirm = new Button("enter");
+        Button sConfirm = new Button("Enter");
         TextField sUsername = new TextField();
         TextField sPassword = new TextField();
 
@@ -305,13 +363,8 @@ public class PALS extends Application
 
         lsLayout.getChildren().addAll(lsLabel, patientButton, staffButton);
 
-
-
         //Start with login select
         primaryStage.setScene(loginSelect);
         primaryStage.show();
-
-
     }
-
-} 
+}
