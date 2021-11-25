@@ -44,6 +44,7 @@ public class Main {
         Staff staffOne = new Staff(123);
         staffOne.setInfo("6029871234", "500 E University Dr", "asandler@gmail.com");
         staffOne.setUserName("asandler");
+        staffOne.setDOB("08/11/1984");
         staffOne.setPassWord("happyfeet1234");
         staffOne.setName("Adam Sandler");
         staffOne.setType("Staff");
@@ -133,6 +134,7 @@ public class Main {
         private Info basic;
         private Patient aPatient;
         private Staff aStaff;
+        private String dob;
         //private messageInbox messageinbox;
 
         //Constructors
@@ -142,13 +144,15 @@ public class Main {
             userName = usersName;
             passWord = password;
             type = typ;
+            dob = " ";
         }
         public User()
         {
-            name = null;
-            userName = null;
-            passWord = null;
-            type = null;
+            name = " ";
+            userName = " ";
+            passWord = " ";
+            type = " ";
+            dob = " ";
         }
         void setName(String nam)
         {
@@ -190,9 +194,18 @@ public class Main {
         {
             return basic;
         }
-        void setPatient(String dofb, String aD, float w, float h, int bT, int bP, String p, String iP)
+        String getDOB()
         {
-            aPatient = new Patient(dofb, aD, w, h, bT, bP, p, iP);
+            return dob;
+        }
+        void setDOB(String dob)
+        {
+            this.dob = dob;
+        }
+
+        void setPatient(String aD, float w, float h, int bT, int bP, String p, String iP)
+        {
+            aPatient = new Patient(aD, w, h, bT, bP, p, iP);
         }
         Patient getPatient()
         {
@@ -215,7 +228,6 @@ public class Main {
     public class Patient extends User
     {
         //private variables
-        private String dob;
         private String assignedDoctor;
         private float weight;
         private float height;
@@ -227,9 +239,8 @@ public class Main {
         private String insuranceProv;
 
         //Constructors
-        Patient(String dofb, String aD, float w, float h, int bT, int bP, String p, String iP)
+        Patient(String aD, float w, float h, int bT, int bP, String p, String iP)
         {
-            dob = dofb;
             assignedDoctor = aD;
             weight = w;
             height = h;
@@ -242,7 +253,6 @@ public class Main {
         }
         Patient()
         {
-            dob = " ";
             assignedDoctor = " ";
             weight = 0;
             height = 0;
@@ -253,14 +263,7 @@ public class Main {
             pharmLoc = " ";
             insuranceProv = " ";
         }
-        void setDOB(String dofb)
-        {
-            dob = dofb;
-        }
-        String getDOB()
-        {
-            return dob;
-        }
+
         void setAssignedDocter(String aD)
         {
             assignedDoctor = aD;
@@ -327,7 +330,7 @@ public class Main {
         }
         public String toString()
         {
-            return dob + "\n" + assignedDoctor + "\n" + weight + "\n" + height + "\n" + bodyTemp + "\n" + bloodPressure + "\n" + allergies.toString() + "\n" + visitHistory.toString() + "\n" + pharmLoc + "\n" + insuranceProv + "\n";
+            return assignedDoctor + "\n" + weight + "\n" + height + "\n" + bodyTemp + "\n" + bloodPressure + "\n" + allergies.toString() + "\n" + visitHistory.toString() + "\n" + pharmLoc + "\n" + insuranceProv + "\n";
         }
     }
 
