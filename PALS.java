@@ -10,6 +10,8 @@ import java.util.*;
 
 public class PALS extends Application
 {
+    public HashMap<String, Main.MessageInbox> inbox = new HashMap<>();
+    
     public static void main(String[] args)
     {
         Main instance = new Main();
@@ -155,6 +157,7 @@ public class PALS extends Application
                 newClass.createBaseAccounts();
             }
 
+            Main.User foundAccount = null;
             for (Main.User account : accounts)
             {
                 if (account.getType().equalsIgnoreCase("Patient"))
@@ -163,7 +166,7 @@ public class PALS extends Application
                     {
                         if (account.getDOB().equalsIgnoreCase(dob.getText()))
                         {
-                            setFoundPatient(account);
+                            foundAccount = account;
                             break;
                         } else {
                             continue;
@@ -175,6 +178,9 @@ public class PALS extends Application
                     continue;
                 }
             }
+            if (foundAccount != null){
+                setFoundPatient(foundAccount);
+            }
             primaryStage.setScene(staffPatientInfo);
         });
 
@@ -183,6 +189,35 @@ public class PALS extends Application
         spfBack.setPrefSize(100,50);
 
         spfLayout.getChildren().addAll(spfLabel, fName, lName, dob, submit, spfBack);
+
+        //-------------------------Patient Portal Scene------------------------------
+        Group ptLayout = new Group();
+        Scene patientPortal = new Scene(ptLayout,600,500);
+
+        Label ptLabel = new Label("Patient Portal");
+        ptLabel.setLayoutX(240);
+        ptLabel.setLayoutY(25);
+        ptLabel.setPrefSize(150,50);
+        ptLabel.setFont(biggerFont);
+
+        Button ptContact = new Button("Edit Contact Info");
+        ptContact.setLayoutX(230);
+        ptContact.setLayoutY(250);
+        ptContact.setPrefSize(150,50);
+
+        Button ptInbox = new Button("Inbox");
+        ptInbox.setLayoutX(230);
+        ptInbox.setLayoutY(325);
+        ptInbox.setPrefSize(150,50);
+
+        Button ptLogout = new Button("Log Out");
+        ptLogout.setLayoutX(230);
+        ptLogout.setLayoutY(400);
+        ptLogout.setPrefSize(150,50);
+
+
+
+        ptLayout.getChildren().addAll(ptLabel,ptContact,ptLogout,ptInbox);
 
         //---------------------------------Staff Portal Scene------------------------
 
@@ -265,7 +300,7 @@ public class PALS extends Application
                     if (account.getUserName().equalsIgnoreCase(username) &&
                             account.getPassWord().equalsIgnoreCase(password))
                     {
-                        //open patient menu
+                        primaryStage.setScene(patientPortal);
                     } else {
                         plLabel.setText("Incorrect login");
                         continue;
@@ -367,4 +402,5 @@ public class PALS extends Application
         primaryStage.setScene(loginSelect);
         primaryStage.show();
     }
+
 }
