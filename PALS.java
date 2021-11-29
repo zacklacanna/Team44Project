@@ -4,9 +4,13 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.stage.Modality;
 import javafx.scene.Group;
 import javafx.scene.text.*;
 import java.util.*;
+import javafx.scene.layout.VBox;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 
 public class PALS extends Application
 {
@@ -54,14 +58,36 @@ public class PALS extends Application
         Button spCompose = new Button("Compose");
         Button spiBack = new Button("Go back");
 
-        spiLabel.setLayoutX(175);
-        spiLabel.setLayoutY(125);
+        spiLabel.setLayoutX(300);
+        spiLabel.setLayoutY(75);
         spiLabel.setPrefSize(150,50);
         spiLabel.setFont(biggerFont);
 
         spCompose.setLayoutX(500);
-        spCompose.setLayoutY(125);
+        spCompose.setLayoutY(75);
         spCompose.setPrefSize(100,50);
+        spCompose.setOnAction(e -> {
+            final Stage composeMsg = new Stage();
+            composeMsg.initModality(Modality.WINDOW_MODAL);
+            
+            TextField recipientField = new TextField();
+            recipientField.setText("Send to...");
+            TextField subjectField = new TextField();
+            subjectField.setText("Subject...");
+            TextField messageField = new TextField();
+            messageField.setText("Message...");
+            Button closeBtn = new Button("Send");
+            closeBtn.setOnAction(event -> {
+            composeMsg.close();
+            });
+            
+            VBox composeLayout = new VBox(5);
+            composeLayout.getChildren().addAll(new Text("Compose your message"), recipientField, subjectField, messageField, closeBtn);
+            Scene composeMsgScene = new Scene(composeLayout);
+               
+            composeMsg.setScene(composeMsgScene);
+            composeMsg.show();
+        });
 
 
         spiBack.setLayoutX(75);
@@ -214,6 +240,7 @@ public class PALS extends Application
         ptLogout.setLayoutX(230);
         ptLogout.setLayoutY(400);
         ptLogout.setPrefSize(150,50);
+        ptLogout.setOnAction(e -> primaryStage.setScene(loggedOut));
 
 
 
@@ -242,7 +269,7 @@ public class PALS extends Application
         spInbox.setLayoutX(175);
         spInbox.setLayoutY(250);
         spInbox.setPrefSize(150,50);
-        //spInbox.setOnAction(e -> primaryStage.setScene(spInbox));
+        spInbox.setOnAction(e -> primaryStage.setScene(staffInbox));
 
         spLogout.setLayoutX(175);
         spLogout.setLayoutY(325);
