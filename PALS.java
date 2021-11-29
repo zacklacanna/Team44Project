@@ -136,6 +136,54 @@ public class PALS extends Application
 
         spfiLayout.getChildren().addAll(spfiLabel, patientInfo, spfiBack);
 
+        //----------------------------Contact Info Scene--------------------------------------
+        Group contactLayout = new Group();
+        Scene contactScene = new Scene(contactLayout,600,500);
+
+        Label cntLabel = new Label("Contact Information");
+        cntLabel.setLayoutX(220);
+        cntLabel.setLayoutY(100);
+        cntLabel.setPrefSize(400,100);
+        cntLabel.setFont(biggerFont);
+
+        Label cntPhone = new Label("Phone Number: ");
+        cntPhone.setLayoutX(50);
+        cntPhone.setLayoutY(200);
+        cntPhone.setPrefSize(100,25);
+
+        Label cntEmail = new Label("Email Address: ");
+        cntEmail.setLayoutX(50);
+        cntEmail.setLayoutY(250);
+        cntEmail.setPrefSize(100,25);
+
+        Label cntAddress = new Label("Home Address: ");
+        cntAddress.setLayoutX(50);
+        cntAddress.setLayoutY(300);
+        cntAddress.setPrefSize(100,25);
+
+        TextField cntPhoneEdit = new TextField();
+        cntPhoneEdit.setLayoutX(150);
+        cntPhoneEdit.setLayoutY(200);
+        cntPhoneEdit.setPrefSize(250,25);
+
+        TextField cntEmailEdit = new TextField();
+        cntEmailEdit.setLayoutX(150);
+        cntEmailEdit.setLayoutY(250);
+        cntEmailEdit.setPrefSize(250,25);
+
+        TextField cntAddressEdit = new TextField();
+        cntAddressEdit.setLayoutX(150);
+        cntAddressEdit.setLayoutY(300);
+        cntAddressEdit.setPrefSize(250,25);
+
+        Button cntConfirmChanges = new Button("Confirm Changes");
+        cntConfirmChanges.setLayoutX(200);
+        cntConfirmChanges.setLayoutY(350);
+        cntConfirmChanges.setPrefSize(200,25);
+
+
+        contactLayout.getChildren().addAll(cntLabel,cntPhone,cntEmail,cntAddress,
+                cntPhoneEdit,cntEmailEdit,cntAddressEdit,cntConfirmChanges);
         //---------------------------------Staff Find a patient Scene-------------------------
 
         Group spfLayout = new Group();
@@ -215,8 +263,8 @@ public class PALS extends Application
         spfBack.setPrefSize(100,50);
 
         spfLayout.getChildren().addAll(spfLabel, fName, lName, dob, submit, spfBack);
-        
-        
+
+
         //---------------------------------Patient Inbox Scene-------------------------
 
         Group ptiLayout = new Group();
@@ -237,7 +285,7 @@ public class PALS extends Application
         ptCompose.setOnAction(e -> {
             final Stage composeMsg = new Stage();
             composeMsg.initModality(Modality.WINDOW_MODAL);
-            
+
             TextField recipientField = new TextField();
             recipientField.setText("Send to...");
             TextField subjectField = new TextField();
@@ -246,13 +294,13 @@ public class PALS extends Application
             messageField.setText("Message...");
             Button closeBtn = new Button("Send");
             closeBtn.setOnAction(event -> {
-            composeMsg.close();
+                composeMsg.close();
             });
-            
+
             VBox composeLayout = new VBox(5);
             composeLayout.getChildren().addAll(new Text("Compose your message"), recipientField, subjectField, messageField, closeBtn);
             Scene composeMsgScene = new Scene(composeLayout);
-               
+
             composeMsg.setScene(composeMsgScene);
             composeMsg.show();
         });
@@ -278,6 +326,7 @@ public class PALS extends Application
         ptContact.setLayoutX(230);
         ptContact.setLayoutY(250);
         ptContact.setPrefSize(150,50);
+        ptContact.setOnAction(e -> primaryStage.setScene(contactScene));
 
         Button ptInbox = new Button("Inbox");
         ptInbox.setLayoutX(230);
@@ -479,5 +528,4 @@ public class PALS extends Application
         primaryStage.setScene(loginSelect);
         primaryStage.show();
     }
-
 }
