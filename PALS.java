@@ -190,7 +190,7 @@ public class PALS extends Application
                 {
                     if (account.getName().equalsIgnoreCase(firstName + " " + lastName))
                     {
-                        if (account.getDOB().equalsIgnoreCase(dob.getText()))
+                        if (account.getDOB().equals(dob.getText()))
                         {
                             foundAccount = account;
                             break;
@@ -283,6 +283,7 @@ public class PALS extends Application
         ptInbox.setLayoutX(230);
         ptInbox.setLayoutY(325);
         ptInbox.setPrefSize(150,50);
+        ptInbox.setOnAction(e -> primaryStage.setScene(patientInbox));
 
         Button ptLogout = new Button("Log Out");
         ptLogout.setLayoutX(230);
