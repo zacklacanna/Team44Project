@@ -215,6 +215,53 @@ public class PALS extends Application
         spfBack.setPrefSize(100,50);
 
         spfLayout.getChildren().addAll(spfLabel, fName, lName, dob, submit, spfBack);
+        
+        //---------------------------------Patient Inbox Scene-------------------------
+
+        Group ptiLayout = new Group();
+        Scene patientInbox = new Scene(ptiLayout, 600, 500);
+
+        Label ptiLabel = new Label("Inbox");
+        Button ptCompose = new Button("Compose");
+        Button ptiBack = new Button("Go back");
+
+        ptiLabel.setLayoutX(300);
+        ptiLabel.setLayoutY(75);
+        ptiLabel.setPrefSize(150,50);
+        ptiLabel.setFont(biggerFont);
+
+        ptCompose.setLayoutX(500);
+        ptCompose.setLayoutY(75);
+        ptCompose.setPrefSize(100,50);
+        ptCompose.setOnAction(e -> {
+            final Stage composeMsg = new Stage();
+            composeMsg.initModality(Modality.WINDOW_MODAL);
+            
+            TextField recipientField = new TextField();
+            recipientField.setText("Send to...");
+            TextField subjectField = new TextField();
+            subjectField.setText("Subject...");
+            TextField messageField = new TextField();
+            messageField.setText("Message...");
+            Button closeBtn = new Button("Send");
+            closeBtn.setOnAction(event -> {
+            composeMsg.close();
+            });
+            
+            VBox composeLayout = new VBox(5);
+            composeLayout.getChildren().addAll(new Text("Compose your message"), recipientField, subjectField, messageField, closeBtn);
+            Scene composeMsgScene = new Scene(composeLayout);
+               
+            composeMsg.setScene(composeMsgScene);
+            composeMsg.show();
+        });
+
+
+        ptiBack.setLayoutX(75);
+        ptiBack.setLayoutY(75);
+        ptiBack.setPrefSize(100,50);
+
+        ptiLayout.getChildren().addAll(ptiLabel, ptCompose, ptiBack);
 
         //-------------------------Patient Portal Scene------------------------------
         Group ptLayout = new Group();
@@ -242,7 +289,8 @@ public class PALS extends Application
         ptLogout.setPrefSize(150,50);
         ptLogout.setOnAction(e -> primaryStage.setScene(loggedOut));
 
-
+        ptiBack.setOnAction(e -> primaryStage.setScene(patientPortal)); //these buttons must be referenced after the scene is declared
+        //ptcBack.setOnAction(e -> primaryStage.setScene(patientPortal));
 
         ptLayout.getChildren().addAll(ptLabel,ptContact,ptLogout,ptInbox);
 
@@ -327,6 +375,7 @@ public class PALS extends Application
                     if (account.getUserName().equalsIgnoreCase(username) &&
                             account.getPassWord().equalsIgnoreCase(password))
                     {
+                        //currentUser = account;
                         primaryStage.setScene(patientPortal);
                     } else {
                         plLabel.setText("Incorrect login");

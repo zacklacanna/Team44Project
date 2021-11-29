@@ -75,8 +75,8 @@ public class Main {
         patientTwo.setType("Patient");
         patientTwo.setPassWord("threepoint3");
         patientTwo.setInsurance("Cigna");
-        patientOne.setAnAllergy("Honey");
-        patientOne.visitHistory.add(new Visit("08/10/2000",Arrays.asList("N/A"),Arrays.asList("N/A"),Arrays.asList("N/A")));
+        patientTwo.setAnAllergy("Honey");
+        patientTwo.visitHistory.add(new Visit("08/10/2000",Arrays.asList("N/A"),Arrays.asList("N/A"),Arrays.asList("N/A")));
         patientTwo.setBodyTemp(98);
         patientTwo.setHeight(78);
         patientTwo.setBloodPressure((int)(124/80));
