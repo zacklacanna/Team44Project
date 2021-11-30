@@ -30,6 +30,8 @@ public class PALS extends Application
         foundPatient = user;
     }
 
+    Main.User activeUser;
+
     @Override
     public void start(Stage primaryStage) throws Exception
     {
@@ -162,24 +164,32 @@ public class PALS extends Application
         cntAddress.setPrefSize(100,25);
 
         TextField cntPhoneEdit = new TextField();
-        cntPhoneEdit.setLayoutX(150);
-        cntPhoneEdit.setLayoutY(200);
-        cntPhoneEdit.setPrefSize(250,25);
-
         TextField cntEmailEdit = new TextField();
-        cntEmailEdit.setLayoutX(150);
-        cntEmailEdit.setLayoutY(250);
-        cntEmailEdit.setPrefSize(250,25);
-
         TextField cntAddressEdit = new TextField();
-        cntAddressEdit.setLayoutX(150);
-        cntAddressEdit.setLayoutY(300);
-        cntAddressEdit.setPrefSize(250,25);
-
         Button cntConfirmChanges = new Button("Confirm Changes");
-        cntConfirmChanges.setLayoutX(200);
-        cntConfirmChanges.setLayoutY(350);
-        cntConfirmChanges.setPrefSize(200,25);
+        if (activeUser == null)
+        {
+            System.out.println("active user not found");
+        } else {
+            cntPhoneEdit.setText(activeUser.getInfo().getPhoneNumber());
+            cntPhoneEdit.setLayoutX(150);
+            cntPhoneEdit.setLayoutY(200);
+            cntPhoneEdit.setPrefSize(250, 25);
+
+            cntEmailEdit.setText(activeUser.getInfo().getEmail());
+            cntEmailEdit.setLayoutX(150);
+            cntEmailEdit.setLayoutY(250);
+            cntEmailEdit.setPrefSize(250, 25);
+
+            cntAddressEdit.setText(activeUser.getInfo().getHomeAddress());
+            cntAddressEdit.setLayoutX(150);
+            cntAddressEdit.setLayoutY(300);
+            cntAddressEdit.setPrefSize(250, 25);
+
+            cntConfirmChanges.setLayoutX(200);
+            cntConfirmChanges.setLayoutY(350);
+            cntConfirmChanges.setPrefSize(200, 25);
+        }
 
 
         contactLayout.getChildren().addAll(cntLabel,cntPhone,cntEmail,cntAddress,
@@ -419,6 +429,7 @@ public class PALS extends Application
                 newClass.createBaseAccounts();
             }
 
+            Main.User currentUser = null;
             for (Main.User account : accounts)
             {
                 if (account.getType().equalsIgnoreCase("Patient"))
@@ -426,6 +437,7 @@ public class PALS extends Application
                     if (account.getUserName().equalsIgnoreCase(username) &&
                             account.getPassWord().equalsIgnoreCase(password))
                     {
+                        currentUser = account;
                         primaryStage.setScene(patientPortal);
                     } else {
                         plLabel.setText("Incorrect login");
@@ -435,6 +447,10 @@ public class PALS extends Application
                     plLabel.setText("Incorrect login");
                     continue;
                 }
+            }
+            if (currentUser != null)
+            {
+                activeUser = currentUser;
             }
         });
         plLayout.getChildren().addAll(plLabel, pUsername, pPassword, pConfirm);
@@ -477,6 +493,7 @@ public class PALS extends Application
                 newClass.createBaseAccounts();
             }
 
+            Main.User currentUser = null;
             for (Main.User account : accounts)
             {
                 if (account.getType().equalsIgnoreCase("Staff"))
@@ -484,6 +501,7 @@ public class PALS extends Application
                     if (account.getUserName().equalsIgnoreCase(username) &&
                             account.getPassWord().equalsIgnoreCase(password))
                     {
+                        currentUser = account;
                         primaryStage.setScene(staffPortal);
                     } else {
                         slLabel.setText("Incorrect login");
@@ -493,6 +511,10 @@ public class PALS extends Application
                     slLabel.setText("Incorrect login");
                     continue;
                 }
+            }
+            if (currentUser != null)
+            {
+                activeUser = currentUser;
             }
         });
         slLayout.getChildren().addAll(slLabel, sUsername, sPassword, sConfirm);
